@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <title>Bitcoin, el dinero del futuro. | BTC.MX</title>
+    <link rel="icon" href="favicon.ico"/>
+    <meta name="description" content="Bitcoin es una revolucionaria moneda digital y red de pagos que está transformando el panorama financiero en México y el mundo.">
+    <meta property="og:title" content="Bitcoin, el dinero del futuro. | BTC.MX"/>
+    <meta property="og:image" content="https://btc.mx/cover.png"/>
+    <meta property="og:url" content="https://btc.mx"/>
+    <meta property="og:type" content="website"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --dark-bg: #1e1e1e;
+            --dark-text: #f5f5f5;
+            --button-bg: #333;
+            --button-hover-bg: #555;
+            --link-bg: #262626;
+            --link-hover-bg: #333;
+            --orange-text: #f7931a;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .top-bar {
+            position: relative;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 90%;
+            width: 400px;
+            padding: 20px;
+            background-color: var(--link-bg);
+            color: #ffffff;
+            font-size: 1.2em;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            border-radius: 12px;
+            transition: background-color 0.3s;
+            height: 64px;
+            box-sizing: border-box;
+        }
+
+        .top-bar:hover {
+            background-color: var(--link-hover-bg);
+        }
+
+        .top-bar img {
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .top-bar span {
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 100px);
+            padding: 60px 20px 20px;
+            box-sizing: border-box;
+        }
+
+        .bio {
+            font-size: 1em;
+            color: inherit;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .link {
+            width: 100%;
+            max-width: 400px;
+            padding: 0 15px;
+            margin: 10px auto;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1em;
+            color: #ffffff;
+            background-color: var(--link-bg);
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: 64px;
+        }
+
+        .link:hover {
+            background-color: var(--link-hover-bg);
+            transform: scale(1.02);
+        }
+
+        .link img {
+            width: 36px; /* Increased icon size */
+            height: 36px; /* Increased icon size */
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        .link span {
+            margin-right: 15px;
+            text-align: left;
+        }
+
+        .links-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 1em;
+            opacity: 0.8;
+            text-align: center;
+            position: relative;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                font-size: 1em;
+                padding: 15px;
+            }
+
+            .link {
+                font-size: 0.9em;
+                padding: 0 10px;
+                height: 64px;
+            }
+        }
+    </style>
+    <script>
+        async function fetchBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=mxn');
+                const data = await response.json();
+                const price = data.bitcoin.mxn;
+                document.getElementById('btc-price').textContent = `${price.toLocaleString()} MXN`;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('btc-price').textContent = 'Cargando...';
+            }
+        }
+
+        window.onload = function() {
+            fetchBitcoinPrice();
+            setInterval(fetchBitcoinPrice, 60000);
+        };
+    </script>
+</head>
+<body>
+    <div class="top-bar">
+        <img src="bitcoin.png" alt="BTC.MX">
+        <span id="btc-price">Cargando...</span>
+    </div>
+    <div class="container">
+        <div class="bio">Plataformas recomendadas para intercambiar Bitcoin y criptomonedas en México.</div>
+        <div class="links-wrapper">
+            <a href="https://binance.com" target="_blank" class="link"><span>Binance</span><img src="binance.jpg" alt="Binance"></a>
+            <a href="https://strike.me" target="_blank" class="link"><span>Strike</span><img src="strike.jpg" alt="Strike"></a>
+        </div>
+        <div class="bio">Carteras recomendadas para almacenar Bitcoin y criptomonedas.</div>
+        <div class="links-wrapper">
+            <a href="https://muun.com" target="_blank" class="link"><span>Muun</span><img src="muun.jpg" alt="Muun"></a>
+            <a href="https://bluewallet.io" target="_blank" class="link"><span>Blue Wallet</span><img src="blue.png" alt="Blue Wallet"></a>
+            <a href="https://trezor.io" target="_blank" class="link"><span>Trezor</span><img src="trezor.jpg" alt="Trezor"></a>
+        </div>
+        <div class="bio">Siguenos en redes sociales.</div>
+        <div class="links-wrapper">
+            <a href="https://x.com/mex_btc" target="_blank" class="link"><span>X (Twitter)</span><img src="x.jpg" alt="X"></a>
+        </div>
+    </div>
+    <footer class="footer">
+        <a href="https://btc.mx/aviso-legal/" target="_blank" style="color: inherit; text-decoration: none;">Aviso legal</a>
+    </footer>
+</body>
+</html>
