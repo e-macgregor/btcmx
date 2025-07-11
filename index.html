@@ -27,16 +27,13 @@
             background-color: var(--dark-bg);
             color: var(--dark-text);
             transition: background-color 0.3s, color 0.3s;
-            /* Added flexbox properties to center all content vertically and horizontally */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Ensure body takes full viewport height */
-            justify-content: center; /* Vertically center the content block */
-            align-items: center; /* Horizontally center the content block */
         }
 
         .top-bar {
-            /* Removed absolute/relative positioning as body flex handles centering */
+            position: relative;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             max-width: 90%;
             width: 400px;
             padding: 20px;
@@ -52,7 +49,6 @@
             transition: background-color 0.3s;
             height: 64px;
             box-sizing: border-box;
-            margin-bottom: 20px; /* Added margin to separate from the container below */
         }
 
         .top-bar:hover {
@@ -72,12 +68,11 @@
         .container {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers bio and links-wrapper horizontally within container */
-            /* Removed min-height and justify-content as body handles overall vertical centering */
-            padding: 0 20px; /* Adjusted padding to remove fixed top/bottom, horizontal remains */
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 100px);
+            padding: 60px 20px 20px;
             box-sizing: border-box;
-            width: 100%; /* Allows it to take available width up to max-width */
-            max-width: 800px; /* Consistent with links-wrapper for better alignment */
         }
 
         .bio {
@@ -136,11 +131,14 @@
         }
 
         .footer {
-            margin-top: 20px; /* Added margin to separate from the container above */
+            margin-top: 20px;
             font-size: 1em;
             opacity: 0.8;
             text-align: center;
-            /* Removed absolute positioning as body flex handles it */
+            position: relative;
+            left: 0;
+            right: 0;
+            bottom: 20px;
         }
 
         @media (max-width: 768px) {
@@ -157,57 +155,46 @@
         }
     </style>
     <script>
-        // Function to fetch Bitcoin price from CoinGecko API
         async function fetchBitcoinPrice() {
             try {
-                // Make a fetch request to the CoinGecko API for Bitcoin price in MXN
                 const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=mxn');
-                // Parse the JSON response
                 const data = await response.json();
-                // Extract the Bitcoin price in MXN
                 const price = data.bitcoin.mxn;
-                // Update the text content of the element with id 'btc-price'
                 document.getElementById('btc-price').textContent = `${price.toLocaleString()} MXN`;
             } catch (error) {
-                // Log any errors to the console
                 console.error('Error fetching Bitcoin price:', error);
-                // Set a loading message if there's an error
                 document.getElementById('btc-price').textContent = 'Cargando...';
             }
         }
 
-        // When the window loads, fetch the Bitcoin price and set up an interval to refresh it
         window.onload = function() {
-            fetchBitcoinPrice(); // Initial fetch
-            setInterval(fetchBitcoinPrice, 60000); // Fetch every 60 seconds (1 minute)
+            fetchBitcoinPrice();
+            setInterval(fetchBitcoinPrice, 60000);
         };
     </script>
 </head>
 <body>
-    <!-- Top bar displaying BTC.MX logo and Bitcoin price -->
     <div class="top-bar">
         <img src="bitcoin.png" alt="BTC.MX">
         <span id="btc-price">Cargando...</span>
     </div>
-    <!-- Main container for content -->
     <div class="container">
-        <!-- Bio section for recommended platforms -->
         <div class="bio">Plataformas recomendadas para intercambiar Bitcoin y criptomonedas en México.</div>
-        <!-- Wrapper for exchange platform links -->
         <div class="links-wrapper">
             <a href="https://accounts.binance.info/es/register?ref=28076911" target="_blank" class="link"><span>Binance</span><img src="binance.jpg" alt="Binance"></a>
             <a href="https://app.swapido.com/btc_mx" target="_blank" class="link"><span>Swapido</span><img src="swapido.jpg" alt="Swapido"></a>
         </div>
-        <!-- Bio section for recommended wallets -->
         <div class="bio">Carteras recomendadas para almacenar Bitcoin y criptomonedas.</div>
-        <!-- Wrapper for wallet links -->
         <div class="links-wrapper">
             <a href="https://muun.com" target="_blank" class="link"><span>Muun</span><img src="muun.jpg" alt="Muun"></a>
             <a href="https://bluewallet.io" target="_blank" class="link"><span>Blue Wallet</span><img src="blue.png" alt="Blue Wallet"></a>
             <a href="https://trezor.io" target="_blank" class="link"><span>Trezor</span><img src="trezor.jpg" alt="Trezor"></a>
         </div>
+        <div class="bio">Siguenos en redes sociales.</div>
+        <div class="links-wrapper">
+            <a href="https://x.com/e_btc_mx" target="_blank" class="link"><span>X (Twitter)</span><img src="x.jpg" alt="X"></a>
+        </div>
     </div>
-    <!-- Footer section with legal notice -->
     <footer class="footer">
         <a href="https://btc.mx/aviso-legal/" target="_blank" style="color: inherit; text-decoration: none;">Aviso legal</a>
     </footer>
